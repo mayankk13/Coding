@@ -15,22 +15,21 @@ First occurrence of 5 is at index 2 and last occurrence of 5 is at index 5.
 #include<bits/stdc++.h>
 using namespace std;
 
-class Solution
-{
-    public:
-    vector<int> find(int arr[], int n , int x ) {
-        // code here
+class Solution {
+public:
+    vector<int> searchRange(vector<int>& nums, int target) {
+        int n = nums.size();
         int first = -1;
         int last = -1;
         vector<int> res;
         
         for (int i = 0; i < n; i++) {
-            if (arr[i] == x) {
+            if (nums[i] == target) {
                 last = i;
             }
         }
         for (int i = n-1; i >= 0; i--) {
-            if (arr[i] == x) {
+            if (nums[i] == target) {
                 first = i;
             }
         }
