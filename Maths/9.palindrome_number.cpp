@@ -1,10 +1,13 @@
 /*
-Given an integer x, return true if x is a palindrome, and false otherwise.
+Given a string s containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.
 
 Example 1:
-Input: x = 121
+Input: s = "()[]{}"
 Output: true
-Explanation: 121 reads as 121 from left to right and from right to left.
+
+Example 2:
+Input: s = "(]"
+Output: false
 */
 
 #include<bits/stdc++.h>
@@ -12,53 +15,41 @@ using namespace std;
 
 class Solution {
 public:
-    bool isPalindromeM1(int x) {
-        // Negatinve number cannot be palindrome
-        if (x < 0) {
-            return false;
-        }
-        // initialize rev to store reversed number
-        int rev = 0;
-
-        // create temp variable to store original value
-        int temp = x;
-
-        while (temp != 0) {
-            // get the last digit of the number
-            int digit = temp % 10;
-            // append the extracted digit to the reversed number
-            rev = rev * 10 + digit;
-            // remove the last digit from the temp
-            temp = temp / 10;
-        }
-        // Check if the reversed number is equal to the original number.
-        return rev == x;
-    }
-
-    bool isPalindromeM2(int x) {
-        string str = to_string(x);
-
-        int start = 0;
-        int end = str.length()-1;
-
-        while (start < end) {
-            if (str[start] != str[end]) {
-                return false;
+    bool isValid(string s) {
+        stack<char> st;
+        for (int i = 0; i < s.length(); i++) {
+            if (s[i] == '[' || s[i] == '{' || s[i] == '(') {
+                st.push(s[i]);
             }
-            start++;
-            end--;
+            else {
+                if (st.empty()) {
+                    return false;
+                }
+                if (s[i] == ']' && st.top() == '[') {
+                    st.pop();
+                }
+                else if (s[i] == '}' && st.top() == '{') {
+                    st.pop();
+                }
+                else if (s[i] == ')' && st.top() == '(') {
+                    st.pop();
+                }
+                else {
+                    return false;
+                }
+            }
         }
-        return true;
+        return st.size() == 0;
     }
 };
 
 int main() {
-    int x;
-    cin>>x;
+    string str;
+    cin>>str;
 
     Solution ob;
 
-    cout<<ob.isPalindromeM1(x);
+    cout<<ob.isValid(str);
 
     return 0;
 }
