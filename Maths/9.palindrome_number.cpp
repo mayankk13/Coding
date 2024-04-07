@@ -1,13 +1,10 @@
 /*
-Given a string s containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.
+Given an integer x, return true if x is a palindrome, and false otherwise.
 
 Example 1:
-Input: s = "()[]{}"
+Input: x = 121
 Output: true
-
-Example 2:
-Input: s = "(]"
-Output: false
+Explanation: 121 reads as 121 from left to right and from right to left.
 */
 
 #include<bits/stdc++.h>
@@ -15,41 +12,53 @@ using namespace std;
 
 class Solution {
 public:
-    bool isValid(string s) {
-        stack<char> st;
-        for (int i = 0; i < s.length(); i++) {
-            if (s[i] == '[' || s[i] == '{' || s[i] == '(') {
-                st.push(s[i]);
-            }
-            else {
-                if (st.empty()) {
-                    return false;
-                }
-                if (s[i] == ']' && st.top() == '[') {
-                    st.pop();
-                }
-                else if (s[i] == '}' && st.top() == '{') {
-                    st.pop();
-                }
-                else if (s[i] == ')' && st.top() == '(') {
-                    st.pop();
-                }
-                else {
-                    return false;
-                }
-            }
+    bool isPalindromeM1(int x) {
+        // Negatinve number cannot be palindrome
+        if (x < 0) {
+            return false;
         }
-        return st.size() == 0;
+        // initialize rev to store reversed number
+        int rev = 0;
+
+        // create temp variable to store original value
+        int temp = x;
+
+        while (temp != 0) {
+            // get the last digit of the number
+            int digit = temp % 10;
+            // append the extracted digit to the reversed number
+            rev = rev * 10 + digit;
+            // remove the last digit from the temp
+            temp = temp / 10;
+        }
+        // Check if the reversed number is equal to the original number.
+        return rev == x;
+    }
+
+    bool isPalindromeM2(int x) {
+        string str = to_string(x);
+
+        int start = 0;
+        int end = str.length()-1;
+
+        while (start < end) {
+            if (str[start] != str[end]) {
+                return false;
+            }
+            start++;
+            end--;
+        }
+        return true;
     }
 };
 
 int main() {
-    string str;
-    cin>>str;
+    int x;
+    cin>>x;
 
     Solution ob;
 
-    cout<<ob.isValid(str);
+    cout<<ob.isPalindromeM1(x);
 
     return 0;
 }
