@@ -65,6 +65,5 @@ class Solution {
             return;
         }
         treeSum(node);
-        
     }
 };
