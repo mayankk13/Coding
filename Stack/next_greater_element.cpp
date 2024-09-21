@@ -26,8 +26,17 @@ class Solution{
 
         // Iterate over the array from right to left
         for (long long i = n-1; i >= 0; i--) {
+            // if stack is empty push -1 in vector
+            if (st.size() == 0) {
+                res.push_back(-1);
+            }
+            // If the top element of the stack is greater than arr[i], push it to the result vector
+            else if (st.size() > 0 && st.top() > arr[i]) {
+                res.push_back(st.top());
+            }
+            
             // While the stack is not empty and the top element of the stack is less than or equal to arr[i]
-            if (st.size() > 0 && st.top() <= arr[i]) {
+            else if (st.size() > 0 && st.top() <= arr[i]) {
                 // Pop elements from the stack until either it becomes empty or the top element is greater than arr[i]
                 while (st.size() > 0 && st.top() <= arr[i]){
                     st.pop();
@@ -41,14 +50,7 @@ class Solution{
                     res.push_back(st.top());
                 }
             }
-            // if stack is empty push -1 in vector
-            else if (st.size() == 0) {
-                res.push_back(-1);
-            }
-            // If the top element of the stack is greater than arr[i], push it to the result vector
-            else {
-                res.push_back(st.top());
-            }
+            
             // Push the current element arr[i] to the stack
             st.push(arr[i]);
         }
