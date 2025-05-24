@@ -30,16 +30,17 @@ class Solution {
     int findPosition(vector<int>& nums, int target) {
         int low = 0;
         int high = 1;
-        int val = nums[0];
 
-        while (val < target) {
+        // find upper bound for binary search
+        while (high < nums.size() && nums[high] < target) {
             low = high;
             high = high * 2;
-            val = nums[high];
         }
 
-        int res = binarySearch(nums, low, high, target);
-        return res;
+        // cap high to nums.size() - 1
+        high = min(high, (int)nums.size() - 1);
+
+        return binarySearch(nums, low, high, target);
     }
 };
 
