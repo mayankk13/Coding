@@ -2,7 +2,7 @@ package main
 
 import "fmt"
 
-func findFloor(arr []int, target int) int {
+func findCeil(arr []int, target int) int {
 	n := len(arr)
 	left := 0
 	right := n - 1
@@ -11,10 +11,10 @@ func findFloor(arr []int, target int) int {
 	for left <= right {
 		mid := left + (right-left)/2
 
-		if arr[mid] <= target {
-			res = mid
+		if arr[mid] < target {
 			left = mid + 1
 		} else {
+			res = mid
 			right = mid - 1
 		}
 	}
@@ -23,9 +23,9 @@ func findFloor(arr []int, target int) int {
 }
 
 func main() {
-	arr := []int{1, 2, 8, 10, 10, 12, 19}
+	arr := []int{1, 2, 8, 10, 11, 12, 19}
 	target := 5
 
-	idx := findFloor(arr, target)
+	idx := findCeil(arr, target)
 	fmt.Printf("%d ", idx)
 }
